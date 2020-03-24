@@ -7,20 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		019FF6D5242A00540036F780 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019FF6D4242A00540036F780 /* ConnectionViewController.swift */; };
+		019FF6D7242A01540036F780 /* ConnectionStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 019FF6D6242A01540036F780 /* ConnectionStoryboard.storyboard */; };
+		019FF6DB242A2AC40036F780 /* PeerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019FF6DA242A2AC30036F780 /* PeerTableViewCell.swift */; };
 		01D449E12424D496001B2F51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D449E02424D496001B2F51 /* AppDelegate.swift */; };
 		01D449E32424D496001B2F51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D449E22424D496001B2F51 /* SceneDelegate.swift */; };
-		01D449E52424D496001B2F51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D449E42424D496001B2F51 /* ViewController.swift */; };
-		01D449E82424D496001B2F51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01D449E62424D496001B2F51 /* Main.storyboard */; };
 		01D449EA2424D497001B2F51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01D449E92424D497001B2F51 /* Assets.xcassets */; };
 		01D449ED2424D497001B2F51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01D449EB2424D497001B2F51 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		019FF6D4242A00540036F780 /* ConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
+		019FF6D6242A01540036F780 /* ConnectionStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConnectionStoryboard.storyboard; sourceTree = "<group>"; };
+		019FF6DA242A2AC30036F780 /* PeerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerTableViewCell.swift; sourceTree = "<group>"; };
 		01D449DD2424D496001B2F51 /* Peer2Peer Tris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peer2Peer Tris.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D449E02424D496001B2F51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01D449E22424D496001B2F51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		01D449E42424D496001B2F51 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		01D449E72424D496001B2F51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01D449E92424D497001B2F51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01D449EC2424D497001B2F51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01D449EE2424D497001B2F51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +39,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		019FF6D3242A00130036F780 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				019FF6D4242A00540036F780 /* ConnectionViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		019FF6D8242A015F0036F780 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				019FF6D6242A01540036F780 /* ConnectionStoryboard.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		019FF6D9242A2AA20036F780 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				019FF6DA242A2AC30036F780 /* PeerTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		01D449D42424D496001B2F51 = {
 			isa = PBXGroup;
 			children = (
@@ -56,10 +82,11 @@
 		01D449DF2424D496001B2F51 /* Peer2Peer Tris */ = {
 			isa = PBXGroup;
 			children = (
+				019FF6D9242A2AA20036F780 /* Views */,
+				019FF6D3242A00130036F780 /* View Controllers */,
+				019FF6D8242A015F0036F780 /* Storyboards */,
 				01D449E02424D496001B2F51 /* AppDelegate.swift */,
 				01D449E22424D496001B2F51 /* SceneDelegate.swift */,
-				01D449E42424D496001B2F51 /* ViewController.swift */,
-				01D449E62424D496001B2F51 /* Main.storyboard */,
 				01D449E92424D497001B2F51 /* Assets.xcassets */,
 				01D449EB2424D497001B2F51 /* LaunchScreen.storyboard */,
 				01D449EE2424D497001B2F51 /* Info.plist */,
@@ -127,7 +154,7 @@
 			files = (
 				01D449ED2424D497001B2F51 /* LaunchScreen.storyboard in Resources */,
 				01D449EA2424D497001B2F51 /* Assets.xcassets in Resources */,
-				01D449E82424D496001B2F51 /* Main.storyboard in Resources */,
+				019FF6D7242A01540036F780 /* ConnectionStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +165,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01D449E52424D496001B2F51 /* ViewController.swift in Sources */,
+				019FF6D5242A00540036F780 /* ConnectionViewController.swift in Sources */,
+				019FF6DB242A2AC40036F780 /* PeerTableViewCell.swift in Sources */,
 				01D449E12424D496001B2F51 /* AppDelegate.swift in Sources */,
 				01D449E32424D496001B2F51 /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +175,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		01D449E62424D496001B2F51 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				01D449E72424D496001B2F51 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		01D449EB2424D497001B2F51 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -294,7 +314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Test.Peer2Peer-Tris";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -312,7 +332,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Test.Peer2Peer-Tris";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
