@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game-->
+        <scene sceneID="kyh-c4-ymu">
+            <objects>
+                <viewController storyboardIdentifier="gameView" title="Game" id="IyD-Rl-luo" customClass="GameViewController" customModule="Peer2Peer_Tris" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i7a-6G-tXo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIb-MM-b5M">
+                                <rect key="frame" x="176" y="44" width="62" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPs-1n-KT6">
+                                <rect key="frame" x="186" y="93" width="29" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-qL-vwY">
+                                <rect key="frame" x="20" y="144" width="374" height="400"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grid" translatesAutoresizingMaskIntoConstraints="NO" id="Ebi-M7-q8X">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="400"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="Ebi-M7-q8X" firstAttribute="top" secondItem="fdZ-qL-vwY" secondAttribute="top" id="XkR-R7-79m"/>
+                                    <constraint firstItem="Ebi-M7-q8X" firstAttribute="bottom" secondItem="fdZ-qL-vwY" secondAttribute="bottom" id="aLf-Uo-Kq4"/>
+                                    <constraint firstItem="Ebi-M7-q8X" firstAttribute="trailing" secondItem="fdZ-qL-vwY" secondAttribute="trailing" id="dWd-DV-tTi"/>
+                                    <constraint firstItem="Ebi-M7-q8X" firstAttribute="leading" secondItem="fdZ-qL-vwY" secondAttribute="leading" id="svs-xW-wDi"/>
+                                    <constraint firstAttribute="height" constant="400" id="zvP-vz-P4p"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fdZ-qL-vwY" firstAttribute="trailing" secondItem="zYR-JV-iBL" secondAttribute="trailing" constant="-20" id="57E-ZQ-aPU"/>
+                            <constraint firstItem="fdZ-qL-vwY" firstAttribute="top" secondItem="zYR-JV-iBL" secondAttribute="top" constant="100" id="G8E-SA-3xf"/>
+                            <constraint firstItem="NPs-1n-KT6" firstAttribute="top" secondItem="iIb-MM-b5M" secondAttribute="bottom" constant="20" id="T5L-Fx-ZrX"/>
+                            <constraint firstItem="NPs-1n-KT6" firstAttribute="centerX" secondItem="zYR-JV-iBL" secondAttribute="centerX" id="Wh1-MA-omc"/>
+                            <constraint firstItem="fdZ-qL-vwY" firstAttribute="leading" secondItem="zYR-JV-iBL" secondAttribute="leading" constant="20" id="geN-6c-jPx"/>
+                            <constraint firstItem="iIb-MM-b5M" firstAttribute="top" secondItem="zYR-JV-iBL" secondAttribute="top" id="qTs-Ny-Bbt"/>
+                            <constraint firstItem="iIb-MM-b5M" firstAttribute="centerX" secondItem="zYR-JV-iBL" secondAttribute="centerX" id="zFj-p1-B8O"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zYR-JV-iBL"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aan-gt-T4f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53.623188405797109" y="237.72321428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Grid" width="720" height="710"/>
+    </resources>
+</document>

@@ -168,5 +168,13 @@ MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, UITableViewDa
         let data = "true".data(using: .utf8)!
         sendData(data: data)
     }
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "segueGame" {
+            print("controllo se è connesso")
+        }
+        return true
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
+    }
 }

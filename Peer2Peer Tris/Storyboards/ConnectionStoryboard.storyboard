@@ -58,6 +58,11 @@
                         <viewLayoutGuide key="safeArea" id="s7R-21-hZ7"/>
                     </view>
                     <navigationItem key="navigationItem" title="Players found" id="3XA-dS-odG">
+                        <barButtonItem key="leftBarButtonItem" title="Play" id="WW9-WU-HrP">
+                            <connections>
+                                <segue destination="8CH-Tc-uVz" kind="show" identifier="segueGame" id="BIh-Iz-68y"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="TUj-jW-yuj">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vaz-Tz-zYs">
                                 <rect key="frame" x="359" y="7" width="35" height="30"/>
@@ -77,6 +82,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FxR-QO-2Zq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1918.840579710145" y="144.64285714285714"/>
+        </scene>
+        <!--gameView-->
+        <scene sceneID="fMR-5x-qu2">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Game" referencedIdentifier="gameView" id="8CH-Tc-uVz" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="wOk-qR-uIt"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gvL-b2-JuX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2837" y="197"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x3v-0c-YKl">
