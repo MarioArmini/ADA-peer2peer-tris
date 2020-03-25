@@ -55,6 +55,7 @@ class Peer2PeerManager: NSObject, MCSessionDelegate,MCNearbyServiceBrowserDelega
             print("Connecting to \(peerID.displayName)...")
         case MCSessionState.notConnected:
             print("Not Connected to \(peerID.displayName)")
+            delegate?.disconnectClient(peerID: peerID)
         @unknown default:
             print("unknown default \(state)")
         }
@@ -62,7 +63,8 @@ class Peer2PeerManager: NSObject, MCSessionDelegate,MCNearbyServiceBrowserDelega
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
-        print("Value recieved: \(str)")
+        print("Value received: \(str)")
+        delegate?.receiveMessage(data: data)
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -104,8 +106,15 @@ class Peer2PeerManager: NSObject, MCSessionDelegate,MCNearbyServiceBrowserDelega
     func sendData(data : Data){
         if session.connectedPeers.count > 0 {
             do {
+                for p in session.connectedPeers {
+                    print("send \(p.displayName)")
+                }
+                /*
+                for p in self.foundPeers {
+                    print("send2 \(p.displayName)")
+                }*/
                 try session.send(data, toPeers: session.connectedPeers, with: .reliable)
-                delegate?.receiveMessage(data: data)
+                //delegate?.receiveMessage(data: data)
             } catch let error as NSError {
                 print(error.localizedDescription)
             }

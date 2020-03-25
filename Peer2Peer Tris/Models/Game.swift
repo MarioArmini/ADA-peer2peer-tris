@@ -85,6 +85,7 @@ struct GameMessage: Codable {
 protocol GameDelegate {
     func onMessage(step: GameStep)
     func onMasterChoose(name: String)
+    func onMove(x:Int, y:Int, piece:TrisPiece)
 }
 class Game {
     
@@ -95,7 +96,11 @@ class Game {
     var session: Peer2PeerManager? // MCSession?
     var delegate: GameDelegate?
     var masterName: String
-    var name: String
+    var name: String {
+        didSet {
+            print("change Name \(name)")
+        }
+    }
     var vsName: String
     var playerPiece: TrisPiece
     
@@ -151,7 +156,7 @@ class Game {
         self.move(x: x, y: y, m: self.playerPiece)
     }
     func sendMessageStarting() {
-        self.sendToPeer(message: GameMessage(step: .starting, name: self.name))
+        self.sendToPeer(message: GameMessage(step: .starting, name: self.name), changeStep: false)
     }
     func sendChangePlayer() {
         self.sendToPeer(message: GameMessage(step: .changePlayer, name: self.name, piece: self.playerPiece))
@@ -173,9 +178,11 @@ class Game {
             sendToPeer(message: msg)
         }
     }
-    func sendToPeer(message: GameMessage) {
+    func sendToPeer(message: GameMessage, changeStep: Bool = true) {
         if session != nil {
-            self.currentStep = GameStep(rawValue: message.step)!
+            if changeStep {
+                self.currentStep = GameStep(rawValue: message.step)!
+            }
             session?.sendData(data: message.toJson().data(using: .utf8)!)
         }
         /*if session != nil && session!.connectedPeers.count > 0 {
@@ -208,8 +215,14 @@ class Game {
                 print("GameStep.none")
             case GameStep.starting:
                 print("GameStep.starting")
+                if self.currentStep == .none {
+                    self.currentStep = .starting
+                }
             case GameStep.chooseMaster:
-                print("GameStep.chooseMaster")
+                if self.currentStep == .none {
+                    self.currentStep = .starting
+                }
+                print("GameStep.chooseMaster \(obj.master!.name) \(self.name)")
                 self.vsName = obj.name
                 self.masterReceive = obj.master!
                 self.checkMaster()
@@ -217,6 +230,7 @@ class Game {
                 print("GameStep.move")
                 if obj.command != nil {
                     tris[obj.command!.moveToX][obj.command!.moveToY] = obj.command!.playerMove
+                    self.delegate?.onMove(x: obj.command!.moveToX, y: obj.command!.moveToY, piece: TrisPiece(rawValue: obj.command!.playerMove)!)
                 }
             case GameStep.changePlayer:
                 print("GameStep.changePlayer \(obj.name) \(obj.currentPiece!)")
@@ -236,6 +250,7 @@ class Game {
         }
     }
     func checkMaster() {
+        //print("checkMaster \(self.masterReceive?.name)  \(self.masterReceive?.name)")
         if self.masterReceive != nil && self.masterSent != nil {
             if self.masterSent!.masterNumber > self.masterReceive!.masterNumber {
                 self.isMaster = true
@@ -249,6 +264,8 @@ class Game {
                 self.currentPiece = .X
             }
             self.delegate?.onMasterChoose(name: self.masterName)
+        } else if self.masterReceive != nil {
+            self.sendMessageMaster()
         }
         
     }

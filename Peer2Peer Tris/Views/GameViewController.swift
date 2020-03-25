@@ -15,6 +15,7 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
     @IBOutlet weak var titoloLabel: UILabel!
     @IBOutlet weak var labelInfo: UILabel!
     
+    @IBOutlet weak var noteTextView: UITextView!
     
     var buttons = [UIButton]()
     var coordButtons = [Int: CGPoint]()
@@ -26,11 +27,14 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        noteTextView.text = ""
         game = Game()
+        game.name = app.peer2peer.peerID.displayName
         game?.delegate = self
         app.peer2peer.delegate = self
         // Do any additional setup after loading the view.
+        titoloLabel.text = game.name
+        
     }
     override func viewWillAppear(_ animated: Bool) {
     }
@@ -66,6 +70,7 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
     override func viewWillDisappear(_ animated: Bool) {
         game.clearState()
         game.sendMessageDone()
+        stopTimer()
     }
     @objc func onClickPiece(sender: UIButton!) {
         
@@ -75,8 +80,8 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
             } else {
                 let bnt = buttons[sender.tag]
                 let xy = coordButtons[sender.tag]!
-                let imageName = "image" + ((xy.x > 0) ? "-x" : "-o")
                 if bnt.currentImage == nil {
+                    let imageName = "image-" + game.playerPiece.rawValue.lowercased()
                     bnt.setImage(UIImage(named: imageName), for: .normal)
                     let x = Int(xy.x)
                     let y = Int(xy.y)
@@ -89,8 +94,16 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         } else {
             showMessage("Non sei in modalità play")
         }
-        
-        
+    }
+    func updateImage(x: Int, y: Int, piece: TrisPiece) {
+        for i in 0..<coordButtons.count {
+            if coordButtons[i]?.x == CGFloat(x) && coordButtons[i]?.y == CGFloat(y) {
+                let bnt = buttons[i]
+                let imageName = "image-" + piece.rawValue.lowercased()
+                bnt.setImage(UIImage(named: imageName), for: .normal)
+                break
+            }
+        }
     }
     func startTimer() {
         stopTimer()
@@ -107,14 +120,11 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         }
     }
     @objc func mainTimer() {
-        //let now = Date()
-        //print("mainTimer \(now)")
         self.manageGame()
     }
     func onMessage(step: GameStep) {
         if step == .none {
-            //self.game.sendMessageStarting()
-            //addLog("invio starting")
+            
         } else if step == .starting {
             self.game.sendMessageMaster()
             addLog("invio scelta master")
@@ -122,14 +132,14 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
             addLog("il master è \(game.masterName)")
         } else if step == .changePlayer {
             if game.waitingPlayer {
-                addLog("In attesa di \(game.vsName)")
-                updateInfo("Waiting \(game.vsName)")
+                addLog("In attesa di \(game.vsName) \(game.currentPiece)")
+                updateInfo("Waiting \(game.vsName) \(game.currentPiece)")
             } else {
                 addLog("Tocca a me \(game.name)")
                 updateInfo("I must move")
             }
         } else if step == .move {
-            addLog("move mossa salvata ora tocca a me \(game.name)")
+            addLog("move mossa salvata ora tocca a me \(game.name) \(game.currentPiece)")
             if game.checkWins(p: game.currentPiece.rawValue) {
                 game.sendMessageDone()
             } else {
@@ -139,6 +149,12 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
             addLog("done")
         }
     }
+    func onMove(x: Int, y: Int, piece: TrisPiece) {
+        DispatchQueue.main.async {
+            self.updateImage(x: x, y: y, piece: piece)
+        }
+        
+    }
     func onMasterChoose(name: String) {
         addLog("onMasterChoose -> \(name)")
         if game.isMaster {
@@ -147,28 +163,17 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
     }
     func manageGame() {
         let step = game.currentStep
-        addLog("Current Step \(step.rawValue)")
+        //updateInfo("Current Step \(step.rawValue) \(game.masterName)")
 
         if step == .none {
-            self.game.sendMessageStarting()
             addLog("invio starting")
+            self.game.sendMessageStarting()
         } else if step == .starting {
-            //self.game.sendMessageMaster()
-            addLog("invio scelta master")
+            
         } else if step == .chooseMaster {
             //addLog("il master è \(game.masterName)")
-            if game.masterName.count == 0 {
-                //game.sendMessageMaster()
-            } else {
-                
-            }
         } else if step == .changePlayer {
-            /*addLog("changePlayer")
-             if game.waitingPlayer {
-             addLog("In attesa di \(game.vsName)")
-             } else {
-             addLog("Tocca a me \(game.name)")
-             }*/
+        
         } else if step == .move {
             addLog("move")
             
@@ -177,10 +182,10 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         }
     }
     func addLog(_ s: String) {
-        /*DispatchQueue.main.async {
-         self.noteTextView.text += "\r" + s
-         }*/
         print(s)
+        DispatchQueue.main.async {
+            self.noteTextView.text += s + "\n"
+        }
     }
     
     func connectClient(peerID: MCPeerID) {
