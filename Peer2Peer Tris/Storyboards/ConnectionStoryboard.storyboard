@@ -68,9 +68,6 @@
                                 <rect key="frame" x="359" y="7" width="35" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Scan"/>
-                                <connections>
-                                    <action selector="scan:" destination="pw5-KN-xHH" eventType="touchUpInside" id="cLV-gG-Uot"/>
-                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>

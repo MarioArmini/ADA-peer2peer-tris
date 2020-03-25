@@ -11,7 +11,6 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var connViewController : ConnectionViewController = ConnectionViewController()
     var peer2peer: Peer2PeerManager = Peer2PeerManager()
     
     public static var App: AppDelegate {
