@@ -52,6 +52,8 @@
                         <viewLayoutGuide key="safeArea" id="zYR-JV-iBL"/>
                     </view>
                     <connections>
+                        <outlet property="labelInfo" destination="NPs-1n-KT6" id="oRh-Xq-dT8"/>
+                        <outlet property="titoloLabel" destination="iIb-MM-b5M" id="UFn-72-AXX"/>
                         <outlet property="viewGrid" destination="Ebi-M7-q8X" id="gWI-bx-KKI"/>
                     </connections>
                 </viewController>

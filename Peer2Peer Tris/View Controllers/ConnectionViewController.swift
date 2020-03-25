@@ -11,7 +11,6 @@ import MultipeerConnectivity
 
 class ConnectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Peer2PeerManagerDelegate{
     
-    var appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -22,18 +21,21 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        let app = AppDelegate.App
         
         //scanButton.action = #selector(scan(sender:))
+        app.peer2peer.delegate = self
         scanButton.addTarget(self, action: #selector(scan(sender:)), for: .touchUpInside)
         
         tableView.tableFooterView = UIView()
-        foundPeers = appDelegate.peer2peer.retrievePeers()
+        foundPeers = app.peer2peer.retrievePeers()
         tableView.reloadData()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        foundPeers = appDelegate.peer2peer.retrievePeers()
+        let app = AppDelegate.App
+        foundPeers = app.peer2peer.retrievePeers()
         tableView.reloadData()
         print(foundPeers)
     }
@@ -41,8 +43,9 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
 
     @objc func scan(sender: UIBarButtonItem) {
         print(strValue)
-        appDelegate.peer2peer.scan()
-        self.foundPeers = self.appDelegate.peer2peer.retrievePeers()
+        let app = AppDelegate.App
+        app.peer2peer.scan()
+        self.foundPeers = app.peer2peer.retrievePeers()
         self.tableView.reloadData()
     }
     
@@ -57,7 +60,8 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        appDelegate.peer2peer.invitePeer(peer: foundPeers[indexPath.row])
+        let app = AppDelegate.App
+        app.peer2peer.invitePeer(peer: foundPeers[indexPath.row])
     }
         
     func connectClient(peerID: MCPeerID) {

@@ -17,6 +17,7 @@
 		6C4B772D242A71C60081E3AE /* Game.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C4B772C242A71C60081E3AE /* Game.storyboard */; };
 		6C4B772F242A728B0081E3AE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4B772E242A728B0081E3AE /* GameViewController.swift */; };
 		6C4B7732242A89AA0081E3AE /* Peer2PeerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4B7731242A89AA0081E3AE /* Peer2PeerManager.swift */; };
+		6CFCCC3E242BC02F00553DDF /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFCCC3D242BC02F00553DDF /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		6C4B772C242A71C60081E3AE /* Game.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
 		6C4B772E242A728B0081E3AE /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		6C4B7731242A89AA0081E3AE /* Peer2PeerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer2PeerManager.swift; sourceTree = "<group>"; };
+		6CFCCC3D242BC02F00553DDF /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				6C4B7731242A89AA0081E3AE /* Peer2PeerManager.swift */,
+				6CFCCC3D242BC02F00553DDF /* Game.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			files = (
 				6C4B772F242A728B0081E3AE /* GameViewController.swift in Sources */,
 				019FF6D5242A00540036F780 /* ConnectionViewController.swift in Sources */,
+				6CFCCC3E242BC02F00553DDF /* Game.swift in Sources */,
 				019FF6DB242A2AC40036F780 /* PeerTableViewCell.swift in Sources */,
 				01D449E12424D496001B2F51 /* AppDelegate.swift in Sources */,
 				6C4B7732242A89AA0081E3AE /* Peer2PeerManager.swift in Sources */,

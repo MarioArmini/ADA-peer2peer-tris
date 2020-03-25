@@ -7,16 +7,29 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
-class GameViewController: UIViewController {
-
+class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelegate {
+    
     @IBOutlet weak var viewGrid: UIImageView!
+    @IBOutlet weak var titoloLabel: UILabel!
+    @IBOutlet weak var labelInfo: UILabel!
+    
+    
     var buttons = [UIButton]()
     var coordButtons = [Int: CGPoint]()
+    var game: Game!
+    var timer: Timer?
+    var app = AppDelegate.App
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        game = Game()
+        game?.delegate = self
+        app.peer2peer.delegate = self
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -29,8 +42,8 @@ class GameViewController: UIViewController {
         let h: CGFloat = size.height/3
         let offsetY: CGFloat = -20.0
         
-        print(offset)
-        print(size)
+        //print(offset)
+        //print(size)
         for x in 0...2 {
             for y in 0...2 {
                 let x2 = CGFloat(offset.x) + (CGFloat(y) * w)
@@ -48,26 +61,155 @@ class GameViewController: UIViewController {
                 self.view.addSubview(bnt)
             }
         }
+        startTimer()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        game.clearState()
+        game.sendMessageDone()
     }
     @objc func onClickPiece(sender: UIButton!) {
-        let bnt = buttons[sender.tag]
-        let xy = coordButtons[sender.tag]!
-        let imageName = "image" + ((xy.x > 0) ? "-x" : "-o")
-        if bnt.currentImage == nil {
-            bnt.setImage(UIImage(named: imageName), for: .normal)
+        
+        if game.currentStep == .changePlayer {
+            if game.waitingPlayer {
+                showMessage("Deve muove l'altro giocatore \(game.vsName)")
+            } else {
+                let bnt = buttons[sender.tag]
+                let xy = coordButtons[sender.tag]!
+                let imageName = "image" + ((xy.x > 0) ? "-x" : "-o")
+                if bnt.currentImage == nil {
+                    bnt.setImage(UIImage(named: imageName), for: .normal)
+                    let x = Int(xy.x)
+                    let y = Int(xy.y)
+                    game.sendMove(x: x, y: y)
+                } else {
+                    addLog("Casella piena")
+                }
+            }
+            
         } else {
-            print("gia pieno")
+            showMessage("Non sei in modalità play")
+        }
+        
+        
+    }
+    func startTimer() {
+        stopTimer()
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0,
+                                        target: self,
+                                        selector: #selector(self.mainTimer),
+                                        userInfo: nil,
+                                        repeats: true)
+    }
+    func stopTimer() {
+       if timer != nil {
+            timer?.invalidate()
+            timer = nil
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func mainTimer() {
+        //let now = Date()
+        //print("mainTimer \(now)")
+        self.manageGame()
     }
-    */
+    func onMessage(step: GameStep) {
+        if step == .none {
+            //self.game.sendMessageStarting()
+            //addLog("invio starting")
+        } else if step == .starting {
+            self.game.sendMessageMaster()
+            addLog("invio scelta master")
+        } else if step == .chooseMaster {
+            addLog("il master è \(game.masterName)")
+        } else if step == .changePlayer {
+            if game.waitingPlayer {
+                addLog("In attesa di \(game.vsName)")
+                updateInfo("Waiting \(game.vsName)")
+            } else {
+                addLog("Tocca a me \(game.name)")
+                updateInfo("I must move")
+            }
+        } else if step == .move {
+            addLog("move mossa salvata ora tocca a me \(game.name)")
+            if game.checkWins(p: game.currentPiece.rawValue) {
+                game.sendMessageDone()
+            } else {
+                game.sendChangePlayer()
+            }
+        } else if step == .done {
+            addLog("done")
+        }
+    }
+    func onMasterChoose(name: String) {
+        addLog("onMasterChoose -> \(name)")
+        if game.isMaster {
+            game.sendChangePlayer()
+        }
+    }
+    func manageGame() {
+        let step = game.currentStep
+        addLog("Current Step \(step.rawValue)")
 
+        if step == .none {
+            self.game.sendMessageStarting()
+            addLog("invio starting")
+        } else if step == .starting {
+            //self.game.sendMessageMaster()
+            addLog("invio scelta master")
+        } else if step == .chooseMaster {
+            //addLog("il master è \(game.masterName)")
+            if game.masterName.count == 0 {
+                //game.sendMessageMaster()
+            } else {
+                
+            }
+        } else if step == .changePlayer {
+            /*addLog("changePlayer")
+             if game.waitingPlayer {
+             addLog("In attesa di \(game.vsName)")
+             } else {
+             addLog("Tocca a me \(game.name)")
+             }*/
+        } else if step == .move {
+            addLog("move")
+            
+        } else if step == .done {
+            addLog("done")
+        }
+    }
+    func addLog(_ s: String) {
+        /*DispatchQueue.main.async {
+         self.noteTextView.text += "\r" + s
+         }*/
+        print(s)
+    }
+    
+    func connectClient(peerID: MCPeerID) {
+        
+    }
+    
+    func disconnectClient(peerID: MCPeerID) {
+        stopTimer()
+        game.clearState()
+        showMessage("Connection Lost")
+    }
+    
+    func receiveMessage(data: Data) {
+        game.receiveMessage(data: data) { (success) in
+            
+        }
+    }
+    func showMessage(_ s: String) {
+        
+        DispatchQueue.main.async {
+            let ac = UIAlertController(title: "Tris", message: s, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac,animated: true)
+        }
+        
+    }
+    func updateInfo(_ message: String) {
+        DispatchQueue.main.async {
+            self.labelInfo.text = message
+        }
+    }
 }
