@@ -40,9 +40,7 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         print(foundPeers)
     }
     
-
     @objc func scan(sender: UIBarButtonItem) {
-        print(strValue)
         let app = AppDelegate.App
         app.peer2peer.scan()
         self.foundPeers = app.peer2peer.retrievePeers()
@@ -62,11 +60,11 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let app = AppDelegate.App
         app.peer2peer.invitePeer(peer: foundPeers[indexPath.row])
+        performSegue(withIdentifier: "segueGame", sender: self)
     }
         
     func connectClient(peerID: MCPeerID) {
         print("Connected to \(peerID)")
-        self.strValue = peerID.displayName
     }
     
     func disconnectClient(peerID: MCPeerID) {
@@ -77,8 +75,6 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         print(data)
         self.strValue = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
     }
-    
-    
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "segueGame" {
