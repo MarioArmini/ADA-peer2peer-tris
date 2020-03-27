@@ -292,4 +292,84 @@ class Game {
         
         return false
     }
+    
+    func check1Win() -> Bool{
+        if tris[0][0] == "X" && tris[0][1] == "X" && tris[0][2] == "X"{
+            return true
+        }
+        if tris[0][0] == "O" && tris[0][1] == "O" && tris[0][2] == "O"{
+            return true
+        }
+        return false
+    }
+    
+    func check2Win() -> Bool{
+        if tris[1][0] == "X" && tris[1][1] == "X" && tris[1][2] == "X"{
+            return true
+        }
+        if tris[1][0] == "O" && tris[1][1] == "O" && tris[1][2] == "O"{
+            return true
+        }
+        return false
+    }
+    
+    func check3Win() -> Bool{
+        if tris[2][0] == "X" && tris[2][1] == "X" && tris[2][2] == "X"{
+            return true
+        }
+        if tris[2][0] == "O" && tris[2][1] == "O" && tris[2][2] == "O"{
+            return true
+        }
+        return false
+    }
+    
+    func check4Win() -> Bool{
+        if tris[0][0] == "X" && tris[1][0] == "X" && tris[2][0] == "X"{
+            return true
+        }
+        if tris[0][0] == "O" && tris[1][0] == "O" && tris[2][0] == "O"{
+            return true
+        }
+        return false
+    }
+    
+    func check5Win() -> Bool{
+        if tris[0][1] == "X" && tris[1][1] == "X" && tris[2][1] == "X"{
+            return true
+        }
+        if tris[0][1] == "O" && tris[1][1] == "O" && tris[2][1] == "O"{
+            return true
+        }
+        return false
+    }
+    
+    func check6Win() -> Bool{
+        if tris[0][2] == "X" && tris[1][2] == "X" && tris[2][2] == "X"{
+            return true
+        }
+        if tris[0][2] == "O" && tris[2][2] == "O" && tris[2][2] == "O"{
+            return true
+        }
+        return false
+    }
+    
+    func check7Win() -> Bool{
+        if tris[0][0] == "X" && tris[1][1] == "X" && tris[2][2] == "X"{
+            return true
+        }
+        if tris[0][0] == "O" && tris[1][1] == "O" && tris[2][2] == "O"{
+            return true
+        }
+        return false
+    }
+    
+    func check8Win() -> Bool{
+        if tris[0][2] == "X" && tris[1][1] == "X" && tris[2][0] == "X"{
+            return true
+        }
+        if tris[0][2] == "O" && tris[1][1] == "O" && tris[2][0] == "O"{
+            return true
+        }
+        return false
+    }
 }

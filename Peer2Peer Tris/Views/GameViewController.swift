@@ -23,8 +23,8 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
     var timer: Timer?
     var app = AppDelegate.App
     let defaults = UserDefaults.standard
-    
-    
+    var shapeLayer: CAShapeLayer?
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,15 +56,15 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
                 let y2 = CGFloat(offset.y) + (CGFloat(x) * h) + offsetY
                 
                 let rc = CGRect(x: x2, y: y2, width: w, height: h).inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
-                let bnt = UIButton(frame: rc)
-                bnt.setTitle("", for: .normal)
+                let btn = UIButton(frame: rc)
+                btn.setTitle("", for: .normal)
                 //bnt.backgroundColor = .red
-                bnt.addTarget(self, action: #selector(onClickPiece), for: .touchUpInside)
-                bnt.tag = buttons.count
-                bnt.autoresizesSubviews = false
-                buttons.append(bnt)
-                coordButtons[bnt.tag] = CGPoint(x: x, y: y)
-                self.view.addSubview(bnt)
+                btn.addTarget(self, action: #selector(onClickPiece), for: .touchUpInside)
+                btn.tag = buttons.count
+                btn.autoresizesSubviews = false
+                buttons.append(btn)
+                coordButtons[btn.tag] = CGPoint(x: x, y: y)
+                self.view.addSubview(btn)
             }
         }
         startTimer()
@@ -142,6 +142,46 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
             }
         } else if step == .move {
             addLog("move mossa salvata ora tocca a me \(game.name) \(game.currentPiece)")
+            if game.check1Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[0].center.x-20, yI: self.buttons[0].center.y, xF: self.buttons[2].center.x+20, yF: self.buttons[2].center.y)
+                }
+            }
+            if game.check2Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[3].center.x-20, yI: self.buttons[3].center.y, xF: self.buttons[5].center.x+20, yF: self.buttons[5].center.y)
+                }
+            }
+            if game.check3Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[6].center.x-20, yI: self.buttons[6].center.y, xF: self.buttons[8].center.x+20, yF: self.buttons[8].center.y)
+                }
+            }
+            if game.check4Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[0].center.x, yI: self.buttons[0].center.y-20, xF: self.buttons[6].center.x, yF: self.buttons[6].center.y+20)
+                }
+            }
+            if game.check5Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[1].center.x, yI: self.buttons[1].center.y-20, xF: self.buttons[7].center.x, yF: self.buttons[7].center.y+20)
+                }
+            }
+            if game.check6Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[2].center.x, yI: self.buttons[2].center.y-20, xF: self.buttons[8].center.x, yF: self.buttons[8].center.y+20)
+                }
+            }
+            if game.check7Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[0].center.x-10, yI: self.buttons[0].center.y-10, xF: self.buttons[8].center.x+10, yF: self.buttons[8].center.y+10)
+                }
+            }
+            if game.check8Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[6].center.x-10, yI: self.buttons[6].center.y-10, xF: self.buttons[2].center.x+10, yF: self.buttons[2].center.y+10)
+                }
+            }
             if game.checkWins(p: game.currentPiece.rawValue) {
                 game.sendMessageDone()
                 showMessageEnd("You Lose!")
@@ -151,6 +191,46 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         } else if step == .done {
             addLog("done")
             game.sendChangePlayer()
+            if game.check1Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[0].center.x-20, yI: self.buttons[0].center.y, xF: self.buttons[2].center.x+20, yF: self.buttons[2].center.y)
+                }
+            }
+            if game.check2Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[3].center.x-20, yI: self.buttons[3].center.y, xF: self.buttons[5].center.x+20, yF: self.buttons[5].center.y)
+                }
+            }
+            if game.check3Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[6].center.x-20, yI: self.buttons[6].center.y, xF: self.buttons[8].center.x+20, yF: self.buttons[8].center.y)
+                }
+            }
+            if game.check4Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[0].center.x, yI: self.buttons[0].center.y-20, xF: self.buttons[6].center.x, yF: self.buttons[6].center.y+20)
+                }
+            }
+            if game.check5Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[1].center.x, yI: self.buttons[1].center.y-20, xF: self.buttons[7].center.x, yF: self.buttons[7].center.y+20)
+                }
+            }
+            if game.check6Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[2].center.x, yI: self.buttons[2].center.y-20, xF: self.buttons[8].center.x, yF: self.buttons[8].center.y+20)
+                }
+            }
+            if game.check7Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[0].center.x-10, yI: self.buttons[0].center.y-10, xF: self.buttons[8].center.x+10, yF: self.buttons[8].center.y+10)
+                }
+            }
+            if game.check8Win(){
+                DispatchQueue.main.async {
+                    self.victoryLine(xI: self.buttons[6].center.x-10, yI: self.buttons[6].center.y-10, xF: self.buttons[2].center.x+10, yF: self.buttons[2].center.y+10)
+                }
+            }
             showMessageEnd("Victory!")
         }
     }
@@ -236,4 +316,25 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
             self.labelInfo.text = message
         }
     }
+    
+    func victoryLine(xI: CGFloat, yI: CGFloat, xF: CGFloat, yF: CGFloat){
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: xI, y: yI))
+        path.addLine(to: CGPoint(x: xF, y: yF))
+
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.fillColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0).cgColor
+        shapeLayer.strokeColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1).cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.path = path.cgPath
+
+        self.view.layer.addSublayer(shapeLayer)
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0
+        animation.duration = 0.8
+        shapeLayer.add(animation, forKey: "MyAnimation")
+
+        self.shapeLayer = shapeLayer
+    }
+    
 }
