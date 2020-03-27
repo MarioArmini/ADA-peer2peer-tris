@@ -15,6 +15,7 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var strValue = String()
+    var nickName = String()
     
     
     var foundPeers = [MCPeerID]()
@@ -23,7 +24,6 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         let app = AppDelegate.App
         
-        //scanButton.action = #selector(scan(sender:))
         app.peer2peer.delegate = self
         scanButton.addTarget(self, action: #selector(scan(sender:)), for: .touchUpInside)
         
@@ -58,9 +58,9 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let app = AppDelegate.App
-        app.peer2peer.invitePeer(peer: foundPeers[indexPath.row])
-        performSegue(withIdentifier: "segueGame", sender: self)
+        //let app = AppDelegate.App
+        //app.peer2peer.invitePeer(peer: foundPeers[indexPath.row])
+        showMessageNick(peer: foundPeers[indexPath.row])
     }
         
     func connectClient(peerID: MCPeerID) {
@@ -74,6 +74,28 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     func receiveMessage(data: Data) {
         print(data)
         self.strValue = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
+    }
+    
+    func showMessageNick(peer: MCPeerID){
+        DispatchQueue.main.async {
+            let app = AppDelegate.App
+            let ac = UIAlertController(title: "Tris", message: "Choose your nickname", preferredStyle: .alert)
+            ac.addTextField { textField in
+                textField.placeholder = "Nickname"
+                textField.isSecureTextEntry = false
+            }
+            let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: {(action:UIAlertAction!) in
+                guard let textField = ac.textFields?.first else { return }
+                self.nickName = textField.text ?? "\(app.peer2peer.peerID.displayName)"
+                app.peer2peer.invitePeer(peer: peer)
+                self.performSegue(withIdentifier: "segueGame", sender: self)
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+            ac.addAction(okAction)
+            ac.addAction(cancelAction)
+            self.present(ac,animated: true)
+        }
+        
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

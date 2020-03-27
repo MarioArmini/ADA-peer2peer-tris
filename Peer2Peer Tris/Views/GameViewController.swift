@@ -142,11 +142,14 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
             addLog("move mossa salvata ora tocca a me \(game.name) \(game.currentPiece)")
             if game.checkWins(p: game.currentPiece.rawValue) {
                 game.sendMessageDone()
+                showMessageEnd("You Lose!")
             } else {
                 game.sendChangePlayer()
             }
         } else if step == .done {
             addLog("done")
+            game.sendChangePlayer()
+            showMessageEnd("Victory!")
         }
     }
     func onMove(x: Int, y: Int, piece: TrisPiece) {
@@ -212,6 +215,20 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         }
         
     }
+    
+    func showMessageEnd(_ s: String) {
+        
+        DispatchQueue.main.async {
+            let ac = UIAlertController(title: "Tris", message: s, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: {(action:UIAlertAction!) in
+                self.navigationController?.popToRootViewController(animated: true)
+            })
+            ac.addAction(okAction)
+            self.present(ac,animated: true)
+        }
+        
+    }
+
     func updateInfo(_ message: String) {
         DispatchQueue.main.async {
             self.labelInfo.text = message
