@@ -22,6 +22,7 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
     var game: Game!
     var timer: Timer?
     var app = AppDelegate.App
+    let defaults = UserDefaults.standard
     
     
     
@@ -29,7 +30,8 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         super.viewDidLoad()
         noteTextView.text = ""
         game = Game()
-        game.name = app.peer2peer.peerID.displayName
+        let nickname = defaults.string(forKey: "nickname")
+        game.name = nickname ?? app.peer2peer.peerID.displayName
         game?.delegate = self
         app.peer2peer.delegate = self
         // Do any additional setup after loading the view.

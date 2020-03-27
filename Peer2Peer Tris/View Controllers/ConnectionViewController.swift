@@ -16,6 +16,7 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     var strValue = String()
     var nickName = String()
+    let defaults = UserDefaults.standard
     
     
     var foundPeers = [MCPeerID]()
@@ -88,6 +89,7 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
                 guard let textField = ac.textFields?.first else { return }
                 self.nickName = textField.text ?? "\(app.peer2peer.peerID.displayName)"
                 app.peer2peer.invitePeer(peer: peer)
+                self.defaults.set(self.nickName, forKey: "nickname")
                 self.performSegue(withIdentifier: "segueGame", sender: self)
             })
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
