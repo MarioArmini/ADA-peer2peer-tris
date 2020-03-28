@@ -135,7 +135,7 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         } else if step == .changePlayer {
             if game.waitingPlayer {
                 addLog("In attesa di \(game.vsName) \(game.currentPiece)")
-                updateInfo("Waiting \(game.vsName) \(game.currentPiece)")
+                updateInfo("Waiting \(game.vsName)")
             } else {
                 addLog("Tocca a me \(game.name)")
                 updateInfo("I must move")
@@ -331,7 +331,7 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         self.view.layer.addSublayer(shapeLayer)
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
-        animation.duration = 0.8
+        animation.duration = 0.5
         shapeLayer.add(animation, forKey: "MyAnimation")
 
         self.shapeLayer = shapeLayer
