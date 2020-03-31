@@ -186,6 +186,10 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
                 game.sendMessageDone()
                 showMessageEnd("You Lose!")
             } else {
+                if checkDraw(){
+                    showMessageEnd("It's a draw!")
+                    game.sendMessageDone()
+                }
                 game.sendChangePlayer()
             }
         } else if step == .done {
@@ -230,6 +234,10 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
                 DispatchQueue.main.async {
                     self.victoryLine(xI: self.buttons[6].center.x-10, yI: self.buttons[6].center.y-10, xF: self.buttons[2].center.x+10, yF: self.buttons[2].center.y+10)
                 }
+            }
+            if checkDraw(){
+                showMessageEnd("It's a draw!")
+                game.sendMessageDone()
             }
             showMessageEnd("Victory!")
         }
@@ -335,6 +343,13 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         shapeLayer.add(animation, forKey: "MyAnimation")
 
         self.shapeLayer = shapeLayer
+    }
+    
+    func checkDraw() -> Bool{
+        if self.buttons[0].currentImage != nil && self.buttons[1].currentImage != nil && self.buttons[2].currentImage != nil && self.buttons[3].currentImage != nil && self.buttons[4].currentImage != nil && self.buttons[5].currentImage != nil && self.buttons[6].currentImage != nil && self.buttons[7].currentImage != nil && self.buttons[8].currentImage != nil{
+            return true
+        }
+        return false
     }
     
 }
