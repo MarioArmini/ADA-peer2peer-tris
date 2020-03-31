@@ -284,11 +284,11 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         if game.checkWinSomeone() {
             DispatchQueue.main.async {
                 if self.game.check1Win(){
-                    ptI = CGPoint(x: self.buttons[3].center.x-20, y: self.buttons[3].center.y)
+                    ptI = CGPoint(x: self.buttons[0].center.x-20, y: self.buttons[0].center.y)
                     ptF = CGPoint(x: self.buttons[2].center.x+20, y:self.buttons[2].center.y)
                 }
                 else if self.game.check2Win(){
-                    ptI = CGPoint(x: self.buttons[0].center.x-20, y:self.buttons[0].center.y)
+                    ptI = CGPoint(x: self.buttons[3].center.x-20, y:self.buttons[3].center.y)
                     ptF = CGPoint(x: self.buttons[5].center.x+20, y: self.buttons[5].center.y)
                 }
                 else if self.game.check3Win(){
