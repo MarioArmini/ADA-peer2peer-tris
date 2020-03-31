@@ -269,6 +269,18 @@ class Game {
         }
         
     }
+    func checkFull() -> Bool {
+        var result: Bool = true
+        
+        for i in 0..<3 {
+            for j in 0..<3 {
+                if tris[i][j] == "" {
+                    result = false
+                }
+            }
+        }
+        return result
+    }
     func checkWins(p: String) -> Bool {
         
         for i in 0..<3 {
@@ -292,7 +304,12 @@ class Game {
         
         return false
     }
-    
+    func checkWinSomeone() -> Bool {
+        if checkWins(p: "X") || checkWins(p: "O") {
+            return true
+        }
+        return false
+    }
     func check1Win() -> Bool{
         if tris[0][0] == "X" && tris[0][1] == "X" && tris[0][2] == "X"{
             return true
