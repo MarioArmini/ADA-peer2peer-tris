@@ -32,6 +32,11 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         foundPeers = app.peer2peer.retrievePeers()
         tableView.reloadData()
         
+        if #available(iOS 13.0, *) {
+              // Always adopt a light interface style.
+              overrideUserInterfaceStyle = .light
+          }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,6 +44,7 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         foundPeers = app.peer2peer.retrievePeers()
         tableView.reloadData()
         print(foundPeers)
+        
     }
     
     @objc func scan(sender: UIBarButtonItem) {

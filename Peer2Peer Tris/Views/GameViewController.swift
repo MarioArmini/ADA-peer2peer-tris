@@ -37,6 +37,11 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         // Do any additional setup after loading the view.
         titoloLabel.text = game.name
         
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
     }
