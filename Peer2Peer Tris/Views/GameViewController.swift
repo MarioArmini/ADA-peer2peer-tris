@@ -35,7 +35,7 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         game?.delegate = self
         app.peer2peer.delegate = self
         // Do any additional setup after loading the view.
-        titoloLabel.text = game.name
+        titoloLabel.text = "You are playing as \(game.name)"
         
         if #available(iOS 13.0, *) {
             // Always adopt a light interface style.
@@ -83,7 +83,7 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
         
         if game.currentStep == .changePlayer {
             if game.waitingPlayer {
-                showMessage("Deve muove l'altro giocatore \(game.vsName)")
+                showMessage("Waiting for \(game.vsName)")
             } else {
                 let bnt = buttons[sender.tag]
                 let xy = coordButtons[sender.tag]!
@@ -99,7 +99,7 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
             }
             
         } else {
-            showMessage("Non sei in modalità play")
+            showMessage("You are not in play mode")
         }
     }
     func updateImage(x: Int, y: Int, piece: TrisPiece) {
@@ -143,11 +143,12 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
                 updateInfo("Waiting \(game.vsName)")
             } else {
                 addLog("Tocca a me \(game.name)")
-                updateInfo("I must move")
+                updateInfo("Your turn")
             }
             
         } else if step == .move {
             addLog("move mossa salvata ora tocca a me \(game.name) \(game.currentPiece)")
+            updateInfo("Your turn")
             if game.checkWins(p: game.currentPiece.rawValue) {
                 checkDrawWin()
                 game.sendMessageDone()
@@ -253,7 +254,9 @@ class GameViewController: UIViewController, GameDelegate, Peer2PeerManagerDelega
 
     func updateInfo(_ message: String) {
         DispatchQueue.main.async {
-            self.labelInfo.text = message
+            UIView.animate(withDuration: 1.0, delay: 0, options: [.curveEaseInOut], animations: { () -> Void in
+                self.labelInfo.text = message
+            }, completion: nil)
         }
     }
     
