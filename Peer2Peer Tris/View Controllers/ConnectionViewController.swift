@@ -12,8 +12,10 @@ import MultipeerConnectivity
 class ConnectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Peer2PeerManagerDelegate{
     
     
+    @IBOutlet weak var playButton: UIBarButtonItem!
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    
     var strValue = String()
     var nickName = String()
     let defaults = UserDefaults.standard
@@ -36,6 +38,8 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
               // Always adopt a light interface style.
               overrideUserInterfaceStyle = .light
           }
+        playButton.isEnabled = false
+        self.navigationItem.leftBarButtonItem = nil
         
     }
     
@@ -44,6 +48,7 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         foundPeers = app.peer2peer.retrievePeers()
         tableView.reloadData()
         print(foundPeers)
+        
         
     }
     

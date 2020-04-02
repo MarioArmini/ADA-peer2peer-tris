@@ -59,7 +59,7 @@
                         <viewLayoutGuide key="safeArea" id="s7R-21-hZ7"/>
                     </view>
                     <navigationItem key="navigationItem" title="Current players" id="3XA-dS-odG">
-                        <barButtonItem key="leftBarButtonItem" title="Play" id="WW9-WU-HrP">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Play" id="WW9-WU-HrP">
                             <connections>
                                 <segue destination="8CH-Tc-uVz" kind="show" identifier="segueGame" id="BIh-Iz-68y"/>
                             </connections>
@@ -74,6 +74,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="playButton" destination="WW9-WU-HrP" id="L1N-9w-Fe7"/>
                         <outlet property="scanButton" destination="vaz-Tz-zYs" id="jwo-Yr-0LB"/>
                         <outlet property="tableView" destination="Rcj-0F-0JB" id="zoa-w3-lVo"/>
                     </connections>
